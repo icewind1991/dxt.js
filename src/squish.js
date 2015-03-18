@@ -30,10 +30,14 @@ for (var key in Module) {
 
 // The environment setup code below is customized to use Module.
 // *** Environment setup code ***
-var ENVIRONMENT_IS_NODE = typeof process === 'object' && typeof require === 'function';
 var ENVIRONMENT_IS_WEB = typeof window === 'object';
+var ENVIRONMENT_IS_NODE = (typeof process === 'object' && typeof require === 'function') && !ENVIRONMENT_IS_WEB;
 var ENVIRONMENT_IS_WORKER = typeof importScripts === 'function';
 var ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIRONMENT_IS_WORKER;
+
+if (typeof module !== 'undefined') {
+	module['exports'] = Module;
+}
 
 if (ENVIRONMENT_IS_NODE) {
   // Expose functionality in the same simple way that the shells work
@@ -10414,16 +10418,6 @@ function __ZN6squishL23GetMultiplicity2EvectorERKNS_6Sym3x3Ef($agg$result,$matri
  }
  $46 = $mi;
  switch ($46|0) {
- case 2:  {
-  $52 = (__ZN6squish6Sym3x3ixEi($m,2)|0);
-  $53 = +HEAPF32[$52>>2];
-  $54 = (__ZN6squish6Sym3x3ixEi($m,0)|0);
-  $55 = +HEAPF32[$54>>2];
-  $56 = -$55;
-  __ZN6squish4Vec3C2Efff($agg$result,$53,0.0,$56);
-  STACKTOP = sp;return;
-  break;
- }
  case 4: case 3:  {
   $57 = (__ZN6squish6Sym3x3ixEi($m,4)|0);
   $58 = +HEAPF32[$57>>2];
@@ -10441,6 +10435,16 @@ function __ZN6squishL23GetMultiplicity2EvectorERKNS_6Sym3x3Ef($agg$result,$matri
   $50 = (__ZN6squish6Sym3x3ixEi($m,0)|0);
   $51 = +HEAPF32[$50>>2];
   __ZN6squish4Vec3C2Efff($agg$result,$49,$51,0.0);
+  STACKTOP = sp;return;
+  break;
+ }
+ case 2:  {
+  $52 = (__ZN6squish6Sym3x3ixEi($m,2)|0);
+  $53 = +HEAPF32[$52>>2];
+  $54 = (__ZN6squish6Sym3x3ixEi($m,0)|0);
+  $55 = +HEAPF32[$54>>2];
+  $56 = -$55;
+  __ZN6squish4Vec3C2Efff($agg$result,$53,0.0,$56);
   STACKTOP = sp;return;
   break;
  }
