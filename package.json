@@ -1,0 +1,18 @@
+{
+	"name": "dxt-js",
+	"version": "0.0.1",
+	"description": "Javascript port of the squish DXT compression/decompression library using emscripten",
+	"author": "Robin Appelman <robin@icewind.nl>",
+	"keywords": [
+		"dxt",
+		"squish",
+		"compression"
+	],
+	"main": "dxt.js",
+	"engines": {
+		"node": ">=0.10.0"
+	},
+	"devDependencies": {
+		"domready": "*"
+	}
+}

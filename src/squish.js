@@ -83,13 +83,14 @@ if (ENVIRONMENT_IS_NODE) {
   if (typeof module !== 'undefined') {
     module['exports'] = Module;
   }
+	//silly emscripten, dont hijack my exceptions
 
-  process['on']('uncaughtException', function(ex) {
-    // suppress ExitStatus exceptions from showing an error
-    if (!(ex instanceof ExitStatus)) {
-      throw ex;
-    }
-  });
+  //process['on']('uncaughtException', function(ex) {
+  //  // suppress ExitStatus exceptions from showing an error
+  //  if (!(ex instanceof ExitStatus)) {
+  //    throw ex;
+  //  }
+  //});
 }
 else if (ENVIRONMENT_IS_SHELL) {
   if (!Module['print']) Module['print'] = print;
