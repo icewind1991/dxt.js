@@ -26,15 +26,12 @@ domready(function () {
 	var outputCanvas = document.getElementById('result');
 	inputImage.onload = function () {
 		var sourceData = getImageData(inputImage, 256, 256);
-		console.log(sourceData);
+		var start = (new Date()).getTime();
 		var compressed = dxtJS.compress(sourceData.data, 256, 256, dxtJS.flags.DXT5);
-		console.log(compressed);
-		//var blob = new Blob([compressed], {type: 'application/octet-binary'}); // pass a useful mime type here
-		//var url = URL.createObjectURL(blob);
-		//window.location=url;
 		var uncompressed = dxtJS.decompress(compressed, 256, 256, dxtJS.flags.DXT5);
+		var end = (new Date()).getTime();
 		console.log('decompress done');
-		console.log(uncompressed);
+		console.log('took ' + (end - start) + 'ms');
 		dataToCanvas(outputCanvas, uncompressed, 256, 256);
 	}
 });
