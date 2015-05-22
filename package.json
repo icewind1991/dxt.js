@@ -8,7 +8,7 @@
 		"squish",
 		"compression"
 	],
-	"main": "dxt.js",
+	"main": "./src/dxt.js",
 	"engines": {
 		"node": ">=0.10.0"
 	},
