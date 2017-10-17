@@ -11,9 +11,9 @@ var DecompressImage = libSquish.cwrap('DecompressImage', 'void', ['number', 'num
  * @returns {int}
  */
 function pointerFromData(sourceData) {
-	var buf = libSquish._malloc(sourceData.length * 4);
-	libSquish.HEAPU8.set(sourceData, buf);
-	return buf;
+    var buf = libSquish._malloc(sourceData.length * 4);
+    libSquish.HEAPU8.set(sourceData, buf);
+    return buf;
 }
 
 /**
@@ -23,7 +23,7 @@ function pointerFromData(sourceData) {
  * @return {Uint8Array}
  */
 function getDataFromPointer(pointer, size) {
-	return new Uint8Array(libSquish.HEAPU8.buffer, pointer, size);
+    return new Uint8Array(libSquish.HEAPU8.buffer, pointer, size);
 }
 
 // export "raw" function for use by other emscripten projects
@@ -40,10 +40,10 @@ exports.DecompressImage = DecompressImage;
  * @return {Uint8Array}
  */
 exports.compress = function (inputData, width, height, flags) {
-	var source = pointerFromData(inputData);
-	var targetSize = GetStorageRequirements(width, height, flags);
-	var pointer = libSquish._malloc(targetSize);
-	CompressImage(source, width, height, pointer, flags);
+    var source = pointerFromData(inputData);
+    var targetSize = GetStorageRequirements(width, height, flags);
+    var pointer = libSquish._malloc(targetSize);
+    CompressImage(source, width, height, pointer, flags);
     var out = getDataFromPointer(pointer, targetSize);
     libSquish._free(source);
     libSquish._free(pointer);
@@ -59,33 +59,33 @@ exports.compress = function (inputData, width, height, flags) {
  * @return {Uint8Array}
  */
 exports.decompress = function (inputData, width, height, flags) {
-	var source = pointerFromData(inputData);
-	var targetSize = width * height * 4;
-	var pointer = libSquish._malloc(targetSize);
-	DecompressImage(pointer, width, height, source, flags);
-	var out =  getDataFromPointer(pointer, width * height * 4);
+    var source = pointerFromData(inputData);
+    var targetSize = width * height * 4;
+    var pointer = libSquish._malloc(targetSize);
+    DecompressImage(pointer, width, height, source, flags);
+    var out =  getDataFromPointer(pointer, width * height * 4);
     libSquish._free(source);
     libSquish._free(pointer);
     return out;
 };
 
 exports.flags = {
-	// Use DXT1 compression.
-	DXT1                     : ( 1 << 0 ),
-	// Use DXT3 compression.
-	DXT3                     : ( 1 << 1 ),
-	// Use DXT5 compression.
-	DXT5                     : ( 1 << 2 ),
-	// Use a very slow but very high quality colour compressor.
-	ColourIterativeClusterFit: ( 1 << 8 ),
-	//! Use a slow but high quality colour compressor (the default).
-	ColourClusterFit         : ( 1 << 3 ),
-	//! Use a fast but low quality colour compressor.
-	ColourRangeFit           : ( 1 << 4 ),
-	//! Use a perceptual metric for colour error (the default).
-	ColourMetricPerceptual   : ( 1 << 5 ),
-	//! Use a uniform metric for colour error.
-	ColourMetricUniform      : ( 1 << 6 ),
-	//! Weight the colour by alpha during cluster fit (disabled by default).
-	WeightColourByAlpha      : ( 1 << 7 )
+    // Use DXT1 compression.
+    DXT1                     : ( 1 << 0 ),
+    // Use DXT3 compression.
+    DXT3                     : ( 1 << 1 ),
+    // Use DXT5 compression.
+    DXT5                     : ( 1 << 2 ),
+    // Use a very slow but very high quality colour compressor.
+    ColourIterativeClusterFit: ( 1 << 8 ),
+    //! Use a slow but high quality colour compressor (the default).
+    ColourClusterFit         : ( 1 << 3 ),
+    //! Use a fast but low quality colour compressor.
+    ColourRangeFit           : ( 1 << 4 ),
+    //! Use a perceptual metric for colour error (the default).
+    ColourMetricPerceptual   : ( 1 << 5 ),
+    //! Use a uniform metric for colour error.
+    ColourMetricUniform      : ( 1 << 6 ),
+    //! Weight the colour by alpha during cluster fit (disabled by default).
+    WeightColourByAlpha      : ( 1 << 7 )
 };
