@@ -44,7 +44,10 @@ exports.compress = function (inputData, width, height, flags) {
 	var targetSize = GetStorageRequirements(width, height, flags);
 	var pointer = libSquish._malloc(targetSize);
 	CompressImage(source, width, height, pointer, flags);
-	return getDataFromPointer(pointer, targetSize);
+    var out = getDataFromPointer(pointer, targetSize);
+    libSquish._free(source);
+    libSquish._free(pointer);
+    return out;
 };
 
 /**
@@ -60,7 +63,10 @@ exports.decompress = function (inputData, width, height, flags) {
 	var targetSize = width * height * 4;
 	var pointer = libSquish._malloc(targetSize);
 	DecompressImage(pointer, width, height, source, flags);
-	return getDataFromPointer(pointer, width * height * 4);
+	var out =  getDataFromPointer(pointer, width * height * 4);
+    libSquish._free(source);
+    libSquish._free(pointer);
+    return out;
 };
 
 exports.flags = {

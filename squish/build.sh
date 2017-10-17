@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 
-emcc -O2 -o ../src/squish.js ./*.cpp --memory-init-file 0 -s EXPORTED_FUNCTIONS="['_GetStorageRequirements','_CompressImage','_DecompressImage']"
-emcc -O2 -o ../squish.bc ./*.cpp -s EXPORTED_FUNCTIONS="['_GetStorageRequirements','_CompressImage','_DecompressImage']"
+emcc -O2 -o ../src/squish.js ./*.cpp --memory-init-file 0 -s ALLOW_MEMORY_GROWTH=1 -s EXPORTED_FUNCTIONS="['_GetStorageRequirements','_CompressImage','_DecompressImage']"
+emcc -O2 -o ../squish.bc ./*.cpp -s ALLOW_MEMORY_GROWTH=1 -s EXPORTED_FUNCTIONS="['_GetStorageRequirements','_CompressImage','_DecompressImage']"
 
 # make the result work with browserify
 
