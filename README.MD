@@ -1,5 +1,7 @@
 # dxt.js
 
+[![Build Status](https://travis-ci.org/icewind1991/dxt.js.svg?branch=master)](https://travis-ci.org/icewind1991/dxt.js)
+
 DXT (de)compression in nodejs and the browser (using browserify).
 
 ## Usage
