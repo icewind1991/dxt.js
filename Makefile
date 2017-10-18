@@ -1,4 +1,5 @@
-src/squish.js: $(wildcard squish/*)
+src/squish.js: $(wildcard squish/*.c) $(wildcard squish/*.h) squish/build.sh
+	cd squish; ./build.sh
 
 test/bundle.js: src/dxt.js src/squish.js test/browser-test.js
 	node_modules/.bin/browserify test/browser-test.js -o test/bundle.js
